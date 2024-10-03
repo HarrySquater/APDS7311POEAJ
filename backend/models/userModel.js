@@ -79,7 +79,6 @@ userSchema.statics.signup = async function (
       accountNumber,
       user.accountNumber
     )
-
     //if user is already registered
     if (isIdNumberMatch || isAccountNumberMatch) {
       throw Error('User already exists')
