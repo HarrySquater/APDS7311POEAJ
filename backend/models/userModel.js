@@ -36,7 +36,7 @@ userSchema.statics.signup = async function (
   accountNumber,
   password
 ) {
-  //validate if fields are actually filled
+  //validate fields are entered
   if (!fullName || !password || !idNumber || !accountNumber) {
     throw Error('All fields must be filled')
   }
@@ -58,28 +58,47 @@ userSchema.statics.signup = async function (
   if (!/^\d{7,11}$/.test(accountNumber)) {
     throw Error('Account Number must be between 7 & 11 digits')
   }
-  //validate id number
+
+  //validate ID number
   if (!/^\d{13}$/.test(idNumber)) {
     throw Error('ID Number must be 13 digits')
   }
 
-  //check if ID number is take
-  const existingUser = await this.findOne({ idNumber })
-  if (existingUser) {
-    throw Error('ID Number already taken')
+  //check for existing users with the same ID number or account number
+  const existingUsers = await this.find({
+    $or: [
+      { idNumber: { $exists: true } },
+      { accountNumber: { $exists: true } },
+    ],
+  })
+
+  //using bcrypt.compare to check for duplicates
+  for (const user of existingUsers) {
+    const isIdNumberMatch = await bcrypt.compare(idNumber, user.idNumber)
+    const isAccountNumberMatch = await bcrypt.compare(
+      accountNumber,
+      user.accountNumber
+    )
+
+    //if user is already registered
+    if (isIdNumberMatch || isAccountNumberMatch) {
+      throw Error('User already exists')
+    }
   }
 
-  //salting password, ID number and account number
+  //salting the password, ID number, and account number
   const salt = await bcrypt.genSalt(10)
   const hashedPassword = await bcrypt.hash(password, salt)
   const hashedIDNumber = await bcrypt.hash(idNumber, salt)
   const hashedAccountNumber = await bcrypt.hash(accountNumber, salt)
+
   const user = await this.create({
     fullName,
     password: hashedPassword,
     idNumber: hashedIDNumber,
     accountNumber: hashedAccountNumber,
   })
+
   return user
 }
 
