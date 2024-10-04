@@ -12,12 +12,10 @@ const Register = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault()
-    await signup(fullName, idNumber, accountNumber, password)
-
+    const response = await signup(fullName, idNumber, accountNumber, password)
     if (response.ok) {
-        //reidrect to login once registered
-        navigate('/login')
-      }
+      navigate('/')
+    }
   }
 
   return (
