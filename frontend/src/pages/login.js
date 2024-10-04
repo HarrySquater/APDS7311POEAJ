@@ -19,6 +19,7 @@ const Login = () => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+          fontSize: '50px',
         }}
       >
         Login
@@ -27,14 +28,16 @@ const Login = () => {
         style={{
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center',
-          height: '50vh',
+          height: '100vh',
+          width: '100vw',
+          marginTop: '50px',
         }}
       >
         <form>
           <label>
             Full Name:
             <input
+              style={{ width: '450px' }}
               type='fullName'
               onChange={(e) => setFullName(e.target.value)}
               value={fullName}
@@ -44,6 +47,7 @@ const Login = () => {
           <label>
             Account Number:
             <input
+              style={{ width: '450px' }}
               type='accountNumber'
               onChange={(e) => setAccountNumber(e.target.value)}
               value={accountNumber}
@@ -53,15 +57,31 @@ const Login = () => {
           <label>
             Password:
             <input
+              style={{ width: '450px' }}
               type='password'
               onChange={(e) => setPassword(e.target.value)}
               value={password}
             />
           </label>
           <br />
-          <button type='button' onClick={handleLogin} disabled={isLoading}>
-            Login
-          </button>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <button
+              style={{
+                width: '250px',
+              }}
+              type='button'
+              onClick={handleLogin}
+              disabled={isLoading}
+            >
+              Login
+            </button>
+          </div>
           {error && <div className='error'>{error}</div>}
         </form>
       </div>
