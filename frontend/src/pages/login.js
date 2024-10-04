@@ -63,6 +63,11 @@ const Login = () => {
             Login
           </button>
           {error && <div className='error'>{error}</div>}
+          <div style={{ marginTop: '10px', textAlign: 'center' }}>
+            <span>
+              Not registered? <Link to='/register'>Register here</Link>
+            </span>
+          </div>
         </form>
       </div>
     </div>
