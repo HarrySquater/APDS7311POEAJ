@@ -5,9 +5,9 @@ const ProtectedRoute = ({ children }) => {
   const { user } = useAuthenticationContext()
 
   if (!user) {
+    //redirect to login if the user is not authenticated
     return <Navigate to='/' />
   }
-
   return children
 }
 
