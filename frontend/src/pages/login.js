@@ -1,16 +1,21 @@
 import { useState } from 'react'
 import { useLogin } from '../hooks/useLogin'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const [fullName, setFullName] = useState('')
   const [accountNumber, setAccountNumber] = useState('')
   const [password, setPassword] = useState('')
   const { login, isLoading, error } = useLogin()
+  const navigate = useNavigate()
 
   const handleLogin = async (e) => {
     e.preventDefault()
-    await login(fullName, accountNumber, password)
+    const response = await login(fullName, accountNumber, password)
+    if (response.ok) {
+      navigate('/Home')
+    }
   }
 
   return (
