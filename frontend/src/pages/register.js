@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useSignup } from '../hooks/useSignup'
+import { useNavigate } from 'react-router-dom'
 
 const Register = () => {
   const [fullName, setFullName] = useState('')
@@ -7,10 +8,16 @@ const Register = () => {
   const [accountNumber, setAccountNumber] = useState('')
   const [password, setPassword] = useState('')
   const { signup, isLoading, error } = useSignup()
+  const navigate = useNavigate()
 
   const handleSignup = async (e) => {
     e.preventDefault()
     await signup(fullName, idNumber, accountNumber, password)
+
+    if (response.ok) {
+        //reidrect to login once registered
+        navigate('/login')
+      }
   }
 
   return (
