@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useLogout } from '../hooks/useLogout'
 import Button from '@mui/material/Button'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { usePaymentsContext } from '../hooks/usePaymentContext'
 
 const Payment = () => {
@@ -12,8 +12,10 @@ const Payment = () => {
   const [bankProvider, setBankProvider] = useState('')
   const [swiftAccount, setSwiftAccount] = useState('')
   const [swiftCode, setSwiftCode] = useState('')
-  const [error, setError] = useState(null)
+  const [error] = useState(null)
   const navigate = useNavigate()
+  const [message, setMessage] = useState(null)
+  const [messageType, setMessageType] = useState(null)
 
   const handleLogout = async () => {
     await logout()
@@ -41,24 +43,27 @@ const Payment = () => {
       })
 
       if (!response.ok) {
-        throw new Error('Payment failed')
+        throw new Error('Payment failed, please ensure all fields are correct')
       }
 
       const payment = await response.json()
       console.log('Payment successful:', payment)
 
-      dispatch({ type: 'CREATE_PAYMENT', payload: payment })
-
-      setPaymentAmount('')
-      setCurrencyType('')
-      setBankProvider('')
-      setSwiftAccount('')
-      setSwiftCode('')
-      navigate('/Payment')
+      setMessage('Payment successful')
+      setMessageType('success')
     } catch (error) {
-      console.error('Payment error:', error)
-      setError(error.message)
+      setMessage(error.message)
+      setMessageType('error')
     }
+
+    dispatch({ type: 'CREATE_PAYMENT', payload: Payment })
+
+    setPaymentAmount('')
+    setCurrencyType('')
+    setBankProvider('')
+    setSwiftAccount('')
+    setSwiftCode('')
+    navigate('/Payment')
   }
 
   return (
@@ -82,6 +87,19 @@ const Payment = () => {
       >
         Home
       </h1>
+      {message && (
+        <div
+          style={{
+            color: messageType === 'error' ? 'red' : 'green',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: '30px',
+          }}
+        >
+          {message}
+        </div>
+      )}
       <div
         style={{
           display: 'flex',
