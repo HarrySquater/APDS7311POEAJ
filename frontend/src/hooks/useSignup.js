@@ -18,6 +18,12 @@ export const useSignup = () => {
 
     const json = await response.json()
 
+    if (response.status === 429) {
+      setIsLoading(false)
+      setError('Too many requests. Please try again later.')
+      return { ok: false }
+    }
+
     if (!response.ok) {
       setError(json.error)
       setIsLoading(false)

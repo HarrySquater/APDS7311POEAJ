@@ -5,18 +5,21 @@ const mongoose = require('mongoose')
 const https = require('https')
 const userRoutes = require('./routes/userRouter')
 const fs = require('fs')
-const { error } = require('console')
 const path = require('path')
 const paymentRoutes = require('./routes/paymentRouter')
+const helmet = require('helmet')
 
 const app = express()
+
+//using helmet
+app.use(helmet())
 app.use(express.json())
 
-// Use user routes
+//use user and payment routes
 app.use('/api/users', userRoutes)
 app.use('/api/payments', paymentRoutes)
 
-//creating https server
+//creating HTTPS server
 const sslServer = https.createServer(
   {
     key: fs.readFileSync(path.join(__dirname, 'cert', 'key.pem')),
@@ -25,13 +28,13 @@ const sslServer = https.createServer(
   app
 )
 
-//connecting to database
+//connect to the database
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    //listenf or request on HTTPS server
+    //listen for requests on the HTTPS server
     sslServer.listen(process.env.PORT, () => {
-      console.log('Server is running on port 3000')
+      console.log(`Server is running on port ${process.env.PORT}`)
     })
   })
   .catch((error) => {
