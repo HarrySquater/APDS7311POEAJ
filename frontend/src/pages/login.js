@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useLogin } from '../hooks/useLogin'
-import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Button from '@mui/material/Button'
 
 const Login = () => {
@@ -15,7 +14,7 @@ const Login = () => {
     e.preventDefault()
     const response = await login(fullName, accountNumber, password)
     if (response.ok) {
-      navigate('/Home')
+      navigate('/Payment')
     }
   }
 
@@ -40,31 +39,31 @@ const Login = () => {
           marginTop: '50px',
         }}
       >
-        <form>
-          <label>
+        <form onSubmit={handleLogin}>
+          <label style={{ marginBottom: '5px' }}>
             Full Name:
             <input
-              style={{ width: '450px' }}
-              type='fullName'
+              style={{ width: '450px', marginBottom: '15px' }}
+              type='text'
               onChange={(e) => setFullName(e.target.value)}
               value={fullName}
             />
           </label>
           <br />
-          <label>
+          <label style={{ marginBottom: '5px' }}>
             Account Number:
             <input
-              style={{ width: '450px' }}
-              type='accountNumber'
+              style={{ width: '450px', marginBottom: '15px' }}
+              type='text'
               onChange={(e) => setAccountNumber(e.target.value)}
               value={accountNumber}
             />
           </label>
           <br />
-          <label>
+          <label style={{ marginBottom: '5px' }}>
             Password:
             <input
-              style={{ width: '450px' }}
+              style={{ width: '450px', marginBottom: '15px' }}
               type='password'
               onChange={(e) => setPassword(e.target.value)}
               value={password}
@@ -81,7 +80,7 @@ const Login = () => {
             <Button
               variant='contained'
               style={{ width: '250px' }}
-              onClick={handleLogin}
+              type='submit'
               disabled={isLoading}
             >
               Login
