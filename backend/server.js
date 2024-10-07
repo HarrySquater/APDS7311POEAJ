@@ -7,12 +7,14 @@ const userRoutes = require('./routes/userRouter')
 const fs = require('fs')
 const { error } = require('console')
 const path = require('path')
+const paymentRoutes = require('./routes/paymentRouter')
 
 const app = express()
 app.use(express.json())
 
 // Use user routes
 app.use('/api/users', userRoutes)
+app.use('/api/payments', paymentRoutes)
 
 //creating https server
 const sslServer = https.createServer(
