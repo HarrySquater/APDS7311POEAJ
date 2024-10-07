@@ -1,5 +1,6 @@
 import React from 'react'
 import { useLogout } from '../hooks/useLogout'
+import Button from '@mui/material/Button'
 
 function Home() {
   const { logout } = useLogout()
@@ -17,7 +18,13 @@ function Home() {
         alignItems: 'flex-end',
       }}
     >
-      <button onClick={handleLogout}>Logout</button>
+      <Button
+        variant='contained'
+        style={{ width: '250px' }}
+        onClick={handleLogout}
+      >
+        Logout
+      </Button>
       <h1
         style={{
           alignSelf: 'center',

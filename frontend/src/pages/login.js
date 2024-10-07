@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useLogin } from '../hooks/useLogin'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import Button from '@mui/material/Button'
 
 const Login = () => {
   const [fullName, setFullName] = useState('')
@@ -77,16 +78,14 @@ const Login = () => {
               alignItems: 'center',
             }}
           >
-            <button
-              style={{
-                width: '250px',
-              }}
-              type='button'
+            <Button
+              variant='contained'
+              style={{ width: '250px' }}
               onClick={handleLogin}
               disabled={isLoading}
             >
               Login
-            </button>
+            </Button>
           </div>
           {error && <div className='error'>{error}</div>}
           <div style={{ marginTop: '10px', textAlign: 'center' }}>
