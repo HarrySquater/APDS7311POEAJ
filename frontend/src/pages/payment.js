@@ -6,7 +6,7 @@ import { usePayment } from '../hooks/usePayment'
 
 const Payment = () => {
   const { logout } = useLogout()
-  const { createPayment, error, isLoading, message, messageType } = usePayment()
+  const { createPayment, isLoading, message, messageType } = usePayment()
   const [paymentAmount, setPaymentAmount] = useState('')
   const [currencyType, setCurrencyType] = useState('')
   const [bankProvider, setBankProvider] = useState('')
@@ -158,7 +158,6 @@ const Payment = () => {
               Pay Now
             </Button>
           </div>
-          {error && <div className='error'>{error}</div>}
         </form>
       </div>
     </div>

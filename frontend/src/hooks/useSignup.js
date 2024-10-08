@@ -1,10 +1,21 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useAuthenticationContext } from './useAuthenticationContext'
 
 export const useSignup = () => {
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(null)
   const { dispatch } = useAuthenticationContext()
+  const [csrfToken, setCsrfToken] = useState(null)
+
+  useEffect(() => {
+    //fetching the CSRF token
+    const fetchCsrfToken = async () => {
+      const response = await fetch('/api/csrf-token')
+      const data = await response.json()
+      setCsrfToken(data.csrfToken)
+    }
+    fetchCsrfToken()
+  }, [])
 
   const signup = async (fullName, idNumber, accountNumber, password) => {
     setIsLoading(true)
@@ -12,7 +23,10 @@ export const useSignup = () => {
 
     const response = await fetch('api/users/signup', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'CSRF-Token': csrfToken,
+      },
       body: JSON.stringify({ fullName, idNumber, accountNumber, password }),
     })
 
