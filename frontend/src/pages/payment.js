@@ -61,7 +61,7 @@ const Payment = () => {
           fontSize: '50px',
         }}
       >
-        Home
+        Payment Portal
       </h1>
       {message && (
         <div
