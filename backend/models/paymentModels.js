@@ -92,5 +92,4 @@ paymentSchema.statics.createPayment = async function (
 
   return payment
 }
-
 module.exports = mongoose.model('Payment', paymentSchema)
