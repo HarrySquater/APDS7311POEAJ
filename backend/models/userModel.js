@@ -64,6 +64,13 @@ userSchema.statics.signup = async function (
     throw Error('ID Number must be 13 digits')
   }
 
+  //validate full name: only letters and spaces, and a length between 2 and 50
+  if (!/^[a-zA-Z\s]{2,50}$/.test(fullName)) {
+    throw Error(
+      'Full Name must contain only letters and spaces, and be between 2 and 50 characters long'
+    )
+  }
+
   //check for existing users with the same ID number or account number
   const existingUsers = await this.find({
     $or: [
@@ -130,5 +137,5 @@ userSchema.statics.login = async function (fullName, accountNumber, password) {
   return user
 }
 
-//create the model "book"
+//create the model "user"
 module.exports = mongoose.model('User', userSchema)

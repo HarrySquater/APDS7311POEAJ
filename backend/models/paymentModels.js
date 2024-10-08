@@ -77,6 +77,13 @@ paymentSchema.statics.createPayment = async function (
     throw Error('Invalid SWIFT code format')
   }
 
+  //validate bank provider: only letters and spaces, and a length between 2 and 50
+  if (!/^[a-zA-Z\s]{2,50}$/.test(bankProvider)) {
+    throw Error(
+      'Bank Provider must contain only letters and spaces, and be between 2 and 50 characters long'
+    )
+  }
+
   //hash sensitive fields (swiftAccount and swiftCode)
   const salt = await bcrypt.genSalt(10)
   const hashSA = await bcrypt.hash(swiftAccount, salt)
