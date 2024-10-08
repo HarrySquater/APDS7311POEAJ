@@ -117,7 +117,7 @@ userSchema.statics.login = async function (fullName, accountNumber, password) {
   //see if user exists
   const user = await this.findOne({ fullName })
   if (!user) {
-    throw new Error('Invalid full name or account number')
+    throw new Error('Invalid credentials')
   }
 
   //comparing against hashed versions
@@ -126,12 +126,12 @@ userSchema.statics.login = async function (fullName, accountNumber, password) {
     user.accountNumber
   )
   if (!isValidAccountNumber) {
-    throw new Error('Invalid account number')
+    throw new Error('Invalid credentials')
   }
 
   const isValidPassword = await bcrypt.compare(password, user.password)
   if (!isValidPassword) {
-    throw new Error('Invalid password')
+    throw new Error('Invalid credentials')
   }
 
   return user
