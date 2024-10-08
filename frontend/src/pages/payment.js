@@ -2,20 +2,17 @@ import React, { useState } from 'react'
 import { useLogout } from '../hooks/useLogout'
 import Button from '@mui/material/Button'
 import { useNavigate } from 'react-router-dom'
-import { usePaymentsContext } from '../hooks/usePaymentContext'
+import { usePayment } from '../hooks/usePayment'
 
 const Payment = () => {
   const { logout } = useLogout()
-  const { dispatch } = usePaymentsContext()
+  const { createPayment, error, isLoading, message, messageType } = usePayment()
   const [paymentAmount, setPaymentAmount] = useState('')
   const [currencyType, setCurrencyType] = useState('')
   const [bankProvider, setBankProvider] = useState('')
   const [swiftAccount, setSwiftAccount] = useState('')
   const [swiftCode, setSwiftCode] = useState('')
-  const [error] = useState(null)
   const navigate = useNavigate()
-  const [message, setMessage] = useState(null)
-  const [messageType, setMessageType] = useState(null)
 
   const handleLogout = async () => {
     await logout()
@@ -33,37 +30,16 @@ const Payment = () => {
       swiftCode,
     }
 
-    try {
-      const response = await fetch('/api/payments/createPayment', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(paymentData),
-      })
+    const response = await createPayment(paymentData)
 
-      if (!response.ok) {
-        throw new Error('Payment failed, please ensure all fields are correct')
-      }
-
-      const payment = await response.json()
-      console.log('Payment successful:', payment)
-
-      setMessage('Payment successful')
-      setMessageType('success')
-    } catch (error) {
-      setMessage(error.message)
-      setMessageType('error')
+    if (response.ok) {
+      setPaymentAmount('')
+      setCurrencyType('')
+      setBankProvider('')
+      setSwiftAccount('')
+      setSwiftCode('')
+      navigate('/Payment')
     }
-
-    dispatch({ type: 'CREATE_PAYMENT', payload: Payment })
-
-    setPaymentAmount('')
-    setCurrencyType('')
-    setBankProvider('')
-    setSwiftAccount('')
-    setSwiftCode('')
-    navigate('/Payment')
   }
 
   return (
@@ -177,6 +153,7 @@ const Payment = () => {
               variant='contained'
               style={{ width: '250px', marginRight: '10px' }}
               type='submit'
+              disabled={isLoading}
             >
               Pay Now
             </Button>
