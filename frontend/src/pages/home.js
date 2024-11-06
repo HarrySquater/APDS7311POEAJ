@@ -20,28 +20,46 @@ const Home = () => {
     <div
       style={{
         display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
         flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh',
       }}
     >
-      <Button
-        variant='contained'
-        style={{ width: '250px', marginBottom: '20px' }}
-        disabled={isLoading}
-        onClick={handleUserNavigation}
+      <h1
+        style={{
+          fontSize: '50px',
+          textAlign: 'center',
+          marginBottom: '20px',
+        }}
       >
-        User
-      </Button>
-      <Button
-        variant='contained'
-        style={{ width: '250px' }}
-        disabled={isLoading}
-        onClick={handleAdminNavigation}
+        Please Select Your Role
+      </h1>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '20px',
+        }}
       >
-        Banker
-      </Button>
+        <Button
+          variant='contained'
+          style={{ width: '250px', backgroundColor: '#007bff', color: '#fff' }}
+          disabled={isLoading}
+          onClick={handleUserNavigation}
+        >
+          User
+        </Button>
+        <Button
+          variant='contained'
+          style={{ width: '250px', backgroundColor: '#007bff', color: '#fff' }}
+          disabled={isLoading}
+          onClick={handleAdminNavigation}
+        >
+          Banker
+        </Button>
+      </div>
     </div>
   )
 }
