@@ -1,4 +1,4 @@
-import { AdminAuthenticationContext } from '../contexts/AdminAuthenticationContext'
+import { AdminAuthenticationContext } from '../context/AdminAuthenticationContext'
 import { useContext } from 'react'
 
 export const useAdminAuthenticationContext = () => {
