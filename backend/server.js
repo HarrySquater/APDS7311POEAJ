@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const https = require('https')
 const userRoutes = require('./routes/userRouter')
 const paymentRoutes = require('./routes/paymentRouter')
+const adminRoutes = require('./routes/adminRouter')
 const fs = require('fs')
 const path = require('path')
 const helmet = require('helmet')
@@ -30,6 +31,7 @@ app.get('/api/csrf-token', (req, res) => {
 //CSFR protection on routes
 app.use('/api/users', csrfProtection, userRoutes)
 app.use('/api/payments', csrfProtection, paymentRoutes)
+app.use('/api/admin', csrfProtection, adminRoutes)
 
 //create HTTPS server
 const sslServer = https.createServer(
