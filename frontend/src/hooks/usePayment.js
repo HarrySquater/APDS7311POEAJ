@@ -10,7 +10,7 @@ export const usePayment = () => {
   const { dispatch } = usePaymentsContext()
 
   useEffect(() => {
-    //fetching the CSRF token
+    // fetching the CSRF token
     const fetchCsrfToken = async () => {
       const response = await fetch('/api/csrf-token')
       const data = await response.json()
@@ -53,5 +53,30 @@ export const usePayment = () => {
     }
   }
 
-  return { createPayment, error, isLoading, message, messageType }
+  const getPayments = async () => {
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      const response = await fetch('/api/payments/getPayments')
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch payments')
+      }
+
+      const payments = await response.json()
+      dispatch({ type: 'SET_PAYMENTS', payload: payments })
+
+      setIsLoading(false)
+      return { ok: true, payments }
+    } catch (error) {
+      setMessage(error.message)
+      setMessageType('error')
+      setError(error.message)
+      setIsLoading(false)
+      return { ok: false }
+    }
+  }
+
+  return { createPayment, getPayments, error, isLoading, message, messageType }
 }
