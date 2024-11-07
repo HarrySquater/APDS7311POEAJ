@@ -5,6 +5,7 @@ import Register from './pages/register'
 import Payment from './pages/payment'
 import ProtectedRoute from './components/ProtectedRoute'
 import AdminLogin from './pages/adminLogin'
+import AdminDashboard from './pages/adminDashboard'
 
 function NotFound() {
   return <h1>Error 404, Page not found you skallywag!</h1>
@@ -23,11 +24,12 @@ function App() {
             <Route
               path='/Payment'
               element={
-                <ProtectedRoute>
+                <ProtectedRoute requireAdmin={false}>
                   <Payment />
                 </ProtectedRoute>
               }
             />
+            <Route path='/AdminDashboard' element={<AdminDashboard />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </div>

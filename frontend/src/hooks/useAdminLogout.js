@@ -1,4 +1,4 @@
-import { useAdminAuthenticationContext } from '../contexts/AdminAuthenticationContext'
+import { useAdminAuthenticationContext } from './useAdminAuthenticationContext'
 
 export const useAdminLogout = () => {
   const { dispatch } = useAdminAuthenticationContext()

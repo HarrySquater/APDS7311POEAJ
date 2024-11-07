@@ -21,7 +21,7 @@ export const useAdminLogin = () => {
     setIsLoading(true)
     setError(null)
 
-    const response = await fetch('api/admin/adminlogin', {
+    const response = await fetch('api/admin/loginAdmin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

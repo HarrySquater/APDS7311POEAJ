@@ -16,7 +16,7 @@ const Payment = () => {
 
   const handleLogout = async () => {
     await logout()
-    window.location.reload()
+    window.location.href = '/'
   }
 
   const handlePaymentSubmit = async (e) => {

@@ -72,14 +72,25 @@ adminSchema.statics.signup = async function (idNumber, password) {
   return adminUser
 }
 
-//adding our own login function
+// login function
 adminSchema.statics.login = async function (idNumber, password) {
-  if (idNumber || !password) {
+  if (!idNumber || !password) {
     throw new Error('Please provide all fields')
   }
 
-  //see if user exists
-  const user = await this.findOne({ idNumber })
+  // find all users
+  const allAdmins = await this.find({})
+
+  // comparing hashed id Number
+  let user = null
+  for (const admin of allAdmins) {
+    const isIdNumberMatch = await bcrypt.compare(idNumber, admin.idNumber)
+    if (isIdNumberMatch) {
+      user = admin
+      break
+    }
+  }
+
   if (!user) {
     throw new Error('Invalid credentials')
   }

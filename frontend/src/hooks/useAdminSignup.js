@@ -21,7 +21,7 @@ export const useAdminSignup = () => {
     setIsLoading(true)
     setError(null)
 
-    const response = await fetch('api/admin/adminsignup', {
+    const response = await fetch('api/admin/signupadmin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
