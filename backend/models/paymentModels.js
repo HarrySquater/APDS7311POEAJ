@@ -1,6 +1,6 @@
+const bcrypt = require('bcryptjs')
 const mongoose = require('mongoose')
 const validator = require('validator')
-const { encrypt } = require('../utils/encryptionUtils')
 
 const Schema = mongoose.Schema
 const paymentSchema = new Schema(
@@ -84,16 +84,17 @@ paymentSchema.statics.createPayment = async function (
     )
   }
 
-  //encrypt sensitive fields (swiftAccount and swiftCode)
-  const encryptedSwiftAccount = encrypt(swiftAccount)
-  const encryptedSwiftCode = encrypt(swiftCode)
+  //hash sensitive fields (swiftAccount and swiftCode)
+  const salt = await bcrypt.genSalt(10)
+  const hashSA = await bcrypt.hash(swiftAccount, salt)
+  const hashSC = await bcrypt.hash(swiftCode, salt)
 
   const payment = await this.create({
     paymentAmount,
     currencyType,
     bankProvider,
-    swiftAccount: encryptedSwiftAccount,
-    swiftCode: encryptedSwiftCode,
+    swiftAccount: hashSA,
+    swiftCode: hashSC,
   })
 
   return payment

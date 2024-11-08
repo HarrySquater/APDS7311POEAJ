@@ -3,20 +3,8 @@ const mongoose = require('mongoose')
 
 //get all payments
 const getPayments = async (req, res) => {
-  try {
-    const payments = await Payment.find({}).sort({ createdAt: -1 })
-
-    //decypt payment
-    const decryptedPayments = payments.map((payment) => ({
-      ...payment._doc, // Spread existing fields
-      swiftAccount: payment.decryptSwiftAccount(),
-      swiftCode: payment.decryptSwiftCode(),
-    }))
-
-    res.status(200).json(decryptedPayments)
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to retrieve payments' })
-  }
+  const payments = await Payment.find({}).sort({ createdAt: -1 })
+  res.status(200).json(payments)
 }
 
 //get a single payment by ID
@@ -27,24 +15,13 @@ const getPayment = async (req, res) => {
     return res.status(400).json({ error: 'Invalid ID' })
   }
 
-  try {
-    const payment = await Payment.findById(id)
+  const payment = await Payment.findById(id)
 
-    if (!payment) {
-      return res.status(404).json({ error: 'Payment not found!' })
-    }
-
-    //decrypt payment
-    const decryptedPayment = {
-      ...payment._doc, // Spread existing fields
-      swiftAccount: payment.decryptSwiftAccount(),
-      swiftCode: payment.decryptSwiftCode(),
-    }
-
-    res.status(200).json(decryptedPayment)
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to retrieve payment' })
+  if (!payment) {
+    return res.status(404).json({ error: 'Payment not found!' })
   }
+
+  res.status(200).json({ payment })
 }
 
 //create a new payment
