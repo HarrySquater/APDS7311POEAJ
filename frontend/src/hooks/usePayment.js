@@ -58,7 +58,13 @@ export const usePayment = () => {
     setError(null)
 
     try {
-      const response = await fetch('/api/payments/getPayments')
+      const response = await fetch('/api/payments/getPayments', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'CSRF-Token': csrfToken,
+        },
+      })
 
       if (!response.ok) {
         throw new Error('Failed to fetch payments')

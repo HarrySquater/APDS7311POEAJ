@@ -7,14 +7,15 @@ export const useLogin = () => {
   const { dispatch } = useAuthenticationContext()
   const [csrfToken, setCsrfToken] = useState(null)
 
+  //function to refresh csrf token
+  const refreshCsrfToken = async () => {
+    const response = await fetch('/api/csrf-token')
+    const data = await response.json()
+    setCsrfToken(data.csrfToken)
+  }
+
   useEffect(() => {
-    //fetching the CSRF token
-    const fetchCsrfToken = async () => {
-      const response = await fetch('/api/csrf-token')
-      const data = await response.json()
-      setCsrfToken(data.csrfToken)
-    }
-    fetchCsrfToken()
+    refreshCsrfToken()
   }, [])
 
   const login = async (fullName, accountNumber, password) => {
@@ -44,10 +45,9 @@ export const useLogin = () => {
     }
     if (response.ok) {
       localStorage.setItem('user', JSON.stringify(json))
-
       dispatch({ type: 'LOGIN', payload: json })
-
       setIsLoading(false)
+      await refreshCsrfToken() //refresh csrf token
     }
     return response
   }

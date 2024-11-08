@@ -8,9 +8,17 @@ const AdminDashboard = () => {
   const { getPayments, error, isLoading } = usePayment()
   const [payments, setPayments] = useState([])
   const [dashboardMessage, setDashboardMessage] = useState(null)
+  const [csrfToken, setCsrfToken] = useState(null)
+
+  const refreshCsrfToken = async () => {
+    const response = await fetch('/api/csrf-token')
+    const data = await response.json()
+    setCsrfToken(data.csrfToken)
+  }
 
   useEffect(() => {
     const loadPayments = async () => {
+      await refreshCsrfToken()
       const response = await getPayments()
       if (response.ok) {
         setPayments(response.payments)
@@ -31,7 +39,7 @@ const AdminDashboard = () => {
     <div style={{ padding: '20px' }}>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Button
-          variant='contained'
+          variant="contained"
           style={{ width: '250px' }}
           onClick={handleLogout}
         >
@@ -112,7 +120,7 @@ const AdminDashboard = () => {
                     <td style={{ padding: '15px' }}>{payment.swiftAccount}</td>
                     <td style={{ padding: '15px' }}>{payment.swiftCode}</td>
                     <td style={{ padding: '15px', textAlign: 'center' }}>
-                      <Button variant='contained'>Approve to Swift</Button>
+                      <Button variant="contained">Approve to Swift</Button>
                     </td>
                   </tr>
                 ))}
