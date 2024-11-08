@@ -23,6 +23,6 @@ router.post('/login', bruteForce.prevent, loginUser)
 router.post('/signup', bruteForce.prevent, signupUser)
 
 //log out
-router.get('/logout', logoutUser)
+router.post('/logout', logoutUser)
 
 module.exports = router

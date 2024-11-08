@@ -22,37 +22,31 @@ const AdminDashboard = () => {
     loadPayments()
   }, [])
 
-  const handleLogout = async () => {
-    await adminLogout()
-    localStorage.removeItem('admin')
-    window.location.href = '/'
-  }
-
   return (
-    <div className="admin-dashboard-container">
-      <div className="logout-button-container">
+    <div className='admin-dashboard-container'>
+      <div className='logout-button-container'>
         <Button
-          variant="contained"
-          className="logout-button"
-          onClick={handleLogout}
+          variant='contained'
+          className='logout-button'
+          onClick={adminLogout}
         >
           Logout
         </Button>
       </div>
-      <h1 className="dashboard-title">Admin Dashboard</h1>
+      <h1 className='dashboard-title'>Admin Dashboard</h1>
       {dashboardMessage && (
-        <div className="dashboard-message">{dashboardMessage}</div>
+        <div className='dashboard-message'>{dashboardMessage}</div>
       )}
-      <div className="payments-container">
+      <div className='payments-container'>
         {isLoading ? (
           <p>Loading payments...</p>
         ) : error ? (
-          <p className="error-message">{error}</p>
+          <p className='error-message'>{error}</p>
         ) : (
-          <div className="payments-table-container">
-            <table className="payments-table">
+          <div className='payments-table-container'>
+            <table className='payments-table'>
               <thead>
-                <tr className="table-header">
+                <tr className='table-header'>
                   <th>Payment Amount</th>
                   <th>Currency Type</th>
                   <th>Bank Provider</th>
@@ -63,14 +57,14 @@ const AdminDashboard = () => {
               </thead>
               <tbody>
                 {payments.map((payment) => (
-                  <tr key={payment.id} className="table-row">
+                  <tr key={payment.id} className='table-row'>
                     <td>{payment.paymentAmount}</td>
                     <td>{payment.currencyType}</td>
                     <td>{payment.bankProvider}</td>
                     <td>{payment.swiftAccount}</td>
                     <td>{payment.swiftCode}</td>
-                    <td className="actions-cell">
-                      <Button variant="contained">Approve to Swift</Button>
+                    <td className='actions-cell'>
+                      <Button variant='contained'>Approve to Swift</Button>
                     </td>
                   </tr>
                 ))}
