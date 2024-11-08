@@ -16,6 +16,7 @@ const Payment = () => {
 
   const handleLogout = async () => {
     await logout()
+    localStorage.removeItem('user')
     window.location.href = '/'
   }
 

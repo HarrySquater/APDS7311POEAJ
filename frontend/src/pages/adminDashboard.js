@@ -4,7 +4,7 @@ import { useAdminLogout } from '../hooks/useAdminLogout'
 import { usePayment } from '../hooks/usePayment'
 
 const AdminDashboard = () => {
-  const { logout } = useAdminLogout()
+  const { adminLogout } = useAdminLogout()
   const { getPayments, error, isLoading } = usePayment()
   const [payments, setPayments] = useState([])
   const [dashboardMessage, setDashboardMessage] = useState(null)
@@ -22,8 +22,9 @@ const AdminDashboard = () => {
   }, [])
 
   const handleLogout = async () => {
-    await logout()
-    window.location.reload()
+    await adminLogout()
+    localStorage.removeItem('admin')
+    window.location.href = '/'
   }
 
   return (
