@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button'
 import { useAdminLogout } from '../hooks/useAdminLogout'
 import { usePayment } from '../hooks/usePayment'
+import '../CSS/AdminDashboard.css'
 
 const AdminDashboard = () => {
   const { adminLogout } = useAdminLogout()
@@ -28,91 +29,48 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div style={{ padding: '20px' }}>
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+    <div className="admin-dashboard-container">
+      <div className="logout-button-container">
         <Button
-          variant='contained'
-          style={{ width: '250px' }}
+          variant="contained"
+          className="logout-button"
           onClick={handleLogout}
         >
           Logout
         </Button>
       </div>
-      <h1
-        style={{ display: 'flex', justifyContent: 'center', fontSize: '50px' }}
-      >
-        Admin Dashboard
-      </h1>
+      <h1 className="dashboard-title">Admin Dashboard</h1>
       {dashboardMessage && (
-        <div
-          style={{
-            color: 'green',
-            display: 'flex',
-            justifyContent: 'center',
-            fontSize: '30px',
-          }}
-        >
-          {dashboardMessage}
-        </div>
+        <div className="dashboard-message">{dashboardMessage}</div>
       )}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          marginTop: '50px',
-          overflowX: 'auto',
-          maxWidth: '100%',
-        }}
-      >
+      <div className="payments-container">
         {isLoading ? (
           <p>Loading payments...</p>
         ) : error ? (
-          <p style={{ color: 'red' }}>{error}</p>
+          <p className="error-message">{error}</p>
         ) : (
-          <div style={{ width: '100%', maxWidth: '1200px' }}>
-            <table
-              style={{
-                width: '100%',
-                borderCollapse: 'collapse',
-                overflowX: 'auto',
-                whiteSpace: 'nowrap',
-              }}
-            >
+          <div className="payments-table-container">
+            <table className="payments-table">
               <thead>
-                <tr style={{ backgroundColor: '#f5f5f5' }}>
-                  <th style={{ padding: '15px', textAlign: 'left' }}>
-                    Payment Amount
-                  </th>
-                  <th style={{ padding: '15px', textAlign: 'left' }}>
-                    Currency Type
-                  </th>
-                  <th style={{ padding: '15px', textAlign: 'left' }}>
-                    Bank Provider
-                  </th>
-                  <th style={{ padding: '15px', textAlign: 'left' }}>
-                    Swift Account
-                  </th>
-                  <th style={{ padding: '15px', textAlign: 'left' }}>
-                    Swift Code
-                  </th>
-                  <th style={{ padding: '15px', textAlign: 'center' }}>
-                    Actions
-                  </th>
+                <tr className="table-header">
+                  <th>Payment Amount</th>
+                  <th>Currency Type</th>
+                  <th>Bank Provider</th>
+                  <th>Swift Account</th>
+                  <th>Swift Code</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {payments.map((payment) => (
-                  <tr
-                    key={payment.id}
-                    style={{ borderBottom: '1px solid #ddd' }}
-                  >
-                    <td style={{ padding: '15px' }}>{payment.paymentAmount}</td>
-                    <td style={{ padding: '15px' }}>{payment.currencyType}</td>
-                    <td style={{ padding: '15px' }}>{payment.bankProvider}</td>
-                    <td style={{ padding: '15px' }}>{payment.swiftAccount}</td>
-                    <td style={{ padding: '15px' }}>{payment.swiftCode}</td>
-                    <td style={{ padding: '15px', textAlign: 'center' }}>
-                      <Button variant='contained'>Approve to Swift</Button>
+                  <tr key={payment.id} className="table-row">
+                    <td>{payment.paymentAmount}</td>
+                    <td>{payment.currencyType}</td>
+                    <td>{payment.bankProvider}</td>
+                    <td>{payment.swiftAccount}</td>
+                    <td>{payment.swiftCode}</td>
+                    <td className="actions-cell">
+                      <Button variant="contained">Approve to Swift</Button>
                     </td>
                   </tr>
                 ))}

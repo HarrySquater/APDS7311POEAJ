@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useLogin } from '../hooks/useLogin'
 import { Link, useNavigate } from 'react-router-dom'
 import Button from '@mui/material/Button'
+import '../CSS/Login.css'
 
 const Login = () => {
   const [fullName, setFullName] = useState('')
@@ -19,77 +20,51 @@ const Login = () => {
   }
 
   return (
-    <div>
-      <h1
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: '50px',
-        }}
-      >
-        Login
-      </h1>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          height: '100vh',
-          width: '100vw',
-          marginTop: '50px',
-        }}
-      >
-        <form onSubmit={handleLogin}>
-          <label style={{ marginBottom: '5px' }}>
+    <div className="login-container">
+      <h1 className="login-title">Login</h1>
+      <div className="login-form-wrapper">
+        <form onSubmit={handleLogin} className="login-form">
+          <label className="login-label">
             Full Name:
             <input
-              style={{ width: '450px', marginBottom: '15px' }}
-              type='text'
+              className="login-input"
+              type="text"
               onChange={(e) => setFullName(e.target.value)}
               value={fullName}
             />
           </label>
-          <br />
-          <label style={{ marginBottom: '5px' }}>
+          <label className="login-label">
             Account Number:
             <input
-              style={{ width: '450px', marginBottom: '15px' }}
-              type='text'
+              className="login-input"
+              type="text"
               onChange={(e) => setAccountNumber(e.target.value)}
               value={accountNumber}
             />
           </label>
-          <br />
-          <label style={{ marginBottom: '5px' }}>
+          <label className="login-label">
             Password:
             <input
-              style={{ width: '450px', marginBottom: '15px' }}
-              type='password'
+              className="login-input"
+              type="password"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
             />
           </label>
-          <br />
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
+          <div className="login-button-wrapper">
             <Button
-              variant='contained'
-              style={{ width: '250px' }}
-              type='submit'
+              variant="contained"
+              className="login-button"
+              type="submit"
               disabled={isLoading}
             >
               Login
             </Button>
           </div>
-          {error && <div className='error'>{error}</div>}
-          <div style={{ marginTop: '10px', textAlign: 'center' }}>
+          {error && <div className="error">{error}</div>}
+          <div className="register-link">
             <span>
-              Not registered? <Link to='/Register'>Register here</Link>
+              Not registered? <Link to="/Register">Register here</Link>
             </span>
           </div>
         </form>

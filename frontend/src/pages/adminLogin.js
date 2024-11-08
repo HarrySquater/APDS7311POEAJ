@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useAdminLogin } from '../hooks/useAdminLogin'
 import { useNavigate } from 'react-router-dom'
 import Button from '@mui/material/Button'
+import '../CSS/AdminLogin.css'
 
 const AdminLogin = () => {
   const [idNumber, setIdNumber] = useState('')
@@ -18,64 +19,41 @@ const AdminLogin = () => {
   }
 
   return (
-    <div>
-      <h1
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: '50px',
-        }}
-      >
-        Login
-      </h1>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          height: '100vh',
-          width: '100vw',
-          marginTop: '50px',
-        }}
-      >
+    <div className="admin-login-container">
+      <h1 className="admin-login-title">Login</h1>
+      <div className="admin-login-form-container">
         <form onSubmit={handleAdminLogin}>
-          <label style={{ marginBottom: '5px' }}>
+          <label className="admin-login-label">
             ID Number:
             <input
-              style={{ width: '450px', marginBottom: '15px' }}
-              type='text'
+              className="admin-login-input"
+              type="text"
               onChange={(e) => setIdNumber(e.target.value)}
               value={idNumber}
             />
           </label>
           <br />
-          <label style={{ marginBottom: '5px' }}>
+          <label className="admin-login-label">
             Password:
             <input
-              style={{ width: '450px', marginBottom: '15px' }}
-              type='password'
+              className="admin-login-input"
+              type="password"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
             />
           </label>
           <br />
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
+          <div className="admin-login-button-container">
             <Button
-              variant='contained'
-              style={{ width: '250px' }}
-              type='submit'
+              variant="contained"
+              className="admin-login-button"
+              type="submit"
               disabled={isLoading}
             >
               Login
             </Button>
           </div>
-          {error && <div className='error'>{error}</div>}
+          {error && <div className="error">{error}</div>}
         </form>
       </div>
     </div>

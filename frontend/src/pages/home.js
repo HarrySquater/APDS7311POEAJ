@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import '../CSS/Home.css'
 
 const Home = () => {
   const navigate = useNavigate()
@@ -17,43 +18,20 @@ const Home = () => {
   }
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100vh',
-      }}
-    >
-      <h1
-        style={{
-          fontSize: '50px',
-          textAlign: 'center',
-          marginBottom: '20px',
-        }}
-      >
-        Please Select Your Role
-      </h1>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '20px',
-        }}
-      >
+    <div className="home-container">
+      <h1 className="home-title">Please Select Your Role</h1>
+      <div className="button-container">
         <Button
-          variant='contained'
-          style={{ width: '250px', backgroundColor: '#007bff', color: '#fff' }}
+          variant="contained"
+          className="home-button"
           disabled={isLoading}
           onClick={handleUserNavigation}
         >
           User
         </Button>
         <Button
-          variant='contained'
-          style={{ width: '250px', backgroundColor: '#007bff', color: '#fff' }}
+          variant="contained"
+          className="home-button"
           disabled={isLoading}
           onClick={handleAdminNavigation}
         >

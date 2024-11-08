@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useSignup } from '../hooks/useSignup'
 import { useNavigate } from 'react-router-dom'
-
+import '../CSS/Register.css'
 const Register = () => {
   const [fullName, setFullName] = useState('')
   const [idNumber, setIdNumber] = useState('')
@@ -19,86 +19,61 @@ const Register = () => {
   }
 
   return (
-    <div>
-      <h1
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: '50px',
-        }}
-      >
-        Register
-      </h1>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          height: '100vh',
-          width: '100vw',
-          marginTop: '50px',
-        }}
-      >
+    <div className="register-container">
+      <h1 className="register-title">Register</h1>
+      <div className="register-form-container">
         <form>
-          <label>
+          <label className="register-label">
             Full Name:
             <input
-              style={{ width: '450px' }}
-              type='text'
+              className="register-input"
+              type="text"
               onChange={(e) => setFullName(e.target.value)}
               value={fullName}
             />
           </label>
           <br />
-          <label>
+          <label className="register-label">
             ID Number:
             <input
-              style={{ width: '450px' }}
-              type='text'
+              className="register-input"
+              type="text"
               onChange={(e) => setIdNumber(e.target.value)}
               value={idNumber}
             />
           </label>
           <br />
-          <label>
+          <label className="register-label">
             Account Number:
             <input
-              style={{ width: '450px' }}
-              type='text'
+              className="register-input"
+              type="text"
               onChange={(e) => setAccountNumber(e.target.value)}
               value={accountNumber}
             />
           </label>
           <br />
-          <label>
+          <label className="register-label">
             Password:
             <input
-              style={{ width: '450px' }}
-              type='password'
+              className="register-input"
+              type="password"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
             />
           </label>
           <br />
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
+          <div className="register-button-container">
             <button
-              style={{
-                width: '250px',
-              }}
-              type='button'
+              className="register-button"
+              type="button"
               onClick={handleSignup}
               disabled={isLoading}
             >
               Register
             </button>
           </div>
-          {error && <div className='error'>{error}</div>}
+          {error && <div className="error">{error}</div>}
         </form>
       </div>
     </div>

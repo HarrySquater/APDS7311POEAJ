@@ -1,0 +1,83 @@
+/* Overall container */
+.login-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Title */
+  .login-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Form wrapper for centering */
+  .login-form-wrapper {
+    width: 100%;
+    max-width: 450px;
+  }
+  
+  /* Form and labels */
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .login-label {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .login-input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    box-sizing: border-box;
+  }
+  
+  /* Button */
+  .login-button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .login-button {
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  /* Register link */
+  .register-link {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .login-title {
+      font-size: 2rem;
+    }
+  
+    .login-input {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .login-title {
+      font-size: 1.8rem;
+    }
+  
+    .login-container {
+      padding: 10px;
+    }
+  
+    .login-input {
+      padding: 8px;
+    }
+  }
+  

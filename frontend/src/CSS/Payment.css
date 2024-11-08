@@ -1,0 +1,132 @@
+/* Container for the whole page */
+.payment-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Title */
+  .payment-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Logout button */
+  .logout-button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+  
+  .logout-button {
+    width: 250px;
+  }
+  
+  /* Form container */
+  .payment-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Labels */
+  .payment-label {
+    margin-bottom: 5px;
+    font-size: 1rem;
+  }
+  
+  /* Input fields */
+  .payment-input {
+    width: 450px;
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Button container */
+  .payment-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  /* Button styles */
+  .payment-button {
+    width: 250px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .payment-button:disabled {
+    background-color: #ccc;
+  }
+  
+  /* Success and error messages */
+  .message {
+    color: green;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .error-message {
+    color: red;
+  }
+  
+  .success-message {
+    color: green;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .payment-title {
+      font-size: 2rem;
+    }
+  
+    .payment-input {
+      width: 90%;
+    }
+  
+    .payment-button {
+      width: 200px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .payment-title {
+      font-size: 1.8rem;
+    }
+  
+    .payment-input {
+      width: 85%;
+    }
+  
+    .payment-button {
+      width: 180px;
+    }
+  
+    .payment-container {
+      padding: 10px;
+    }
+  
+    .logout-button {
+      width: 200px;
+    }
+  }
+  

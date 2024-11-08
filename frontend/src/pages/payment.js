@@ -3,6 +3,7 @@ import { useLogout } from '../hooks/useLogout'
 import Button from '@mui/material/Button'
 import { useNavigate } from 'react-router-dom'
 import { usePayment } from '../hooks/usePayment'
+import '../CSS/Payment.css'
 
 const Payment = () => {
   const { logout } = useLogout()
@@ -17,6 +18,7 @@ const Payment = () => {
   const handleLogout = async () => {
     await logout()
     localStorage.removeItem('user')
+    document.cookie = 'csrfToken=; Max-Age=0; path=/' //clear cookie
     window.location.href = '/'
   }
 
@@ -44,116 +46,88 @@ const Payment = () => {
   }
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+    <div className="payment-container">
+      <div className="logout-button-container">
         <Button
-          variant='contained'
-          style={{ width: '250px' }}
+          variant="contained"
+          className="logout-button"
           onClick={handleLogout}
         >
           Logout
         </Button>
       </div>
-      <h1
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: '50px',
-        }}
-      >
-        Payment Portal
-      </h1>
+      <h1 className="payment-title">Payment Portal</h1>
       {message && (
         <div
-          style={{
-            color: messageType === 'error' ? 'red' : 'green',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            fontSize: '30px',
-          }}
+          className={`message ${
+            messageType === 'error' ? 'error-message' : 'success-message'
+          }`}
         >
           {message}
         </div>
       )}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          height: '100vh',
-          width: '100vw',
-          marginTop: '50px',
-        }}
-      >
+      <div className="payment-form-container">
         <form onSubmit={handlePaymentSubmit}>
-          <label style={{ marginBottom: '5px' }}>
+          <label className="payment-label">
             Payment Amount:
             <input
-              style={{ width: '450px', marginBottom: '15px' }}
-              type='number'
+              className="payment-input"
+              type="number"
               onChange={(e) => setPaymentAmount(e.target.value)}
               value={paymentAmount}
               required
             />
           </label>
           <br />
-          <label style={{ marginBottom: '5px' }}>
+          <label className="payment-label">
             Currency Type:
             <input
-              style={{ width: '450px', marginBottom: '15px' }}
-              type='text'
+              className="payment-input"
+              type="text"
               onChange={(e) => setCurrencyType(e.target.value)}
               value={currencyType}
               required
             />
           </label>
           <br />
-          <label style={{ marginBottom: '5px' }}>
+          <label className="payment-label">
             Bank Provider:
             <input
-              style={{ width: '450px', marginBottom: '15px' }}
-              type='text'
+              className="payment-input"
+              type="text"
               onChange={(e) => setBankProvider(e.target.value)}
               value={bankProvider}
               required
             />
           </label>
           <br />
-          <label style={{ marginBottom: '5px' }}>
+          <label className="payment-label">
             Swift Account:
             <input
-              style={{ width: '450px', marginBottom: '15px' }}
-              type='text'
+              className="payment-input"
+              type="text"
               onChange={(e) => setSwiftAccount(e.target.value)}
               value={swiftAccount}
               required
             />
           </label>
           <br />
-          <label style={{ marginBottom: '5px' }}>
+          <label className="payment-label">
             Swift Code:
             <input
-              style={{ width: '450px', marginBottom: '15px' }}
-              type='text'
+              className="payment-input"
+              type="text"
               onChange={(e) => setSwiftCode(e.target.value)}
               value={swiftCode}
               required
             />
           </label>
           <br />
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: '20px',
-            }}
-          >
+          <div className="payment-button-container">
             <Button
-              variant='contained'
-              style={{ width: '250px', marginRight: '10px' }}
-              type='submit'
+              variant="contained"
+              className="payment-button"
+              type="submit"
               disabled={isLoading}
             >
               Pay Now

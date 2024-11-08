@@ -1,0 +1,58 @@
+/* Container for the whole page */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Title */
+  .home-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Button container for spacing */
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  /* Buttons */
+  .home-button {
+    width: 250px;
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .home-title {
+      font-size: 2rem;
+    }
+  
+    .home-button {
+      width: 200px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .home-title {
+      font-size: 1.8rem;
+    }
+  
+    .home-container {
+      padding: 10px;
+    }
+  
+    .home-button {
+      width: 180px;
+    }
+  }
+  
