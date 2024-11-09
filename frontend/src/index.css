@@ -1,13 +1,13 @@
 /* Google font */
-@import url(' https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lora:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Lora:wght@400;700&display=swap');
 
 /* Layout */
 :root {
   --primary: #46329d85; /* Purple */
   --secondary: #573ec385; /* Blue */
   --error: #d9301d; /* Red */
-  --background: #1c3d3d; /* Light grey */
-  --header-bg: #65a590; /* Greenish */
+  --background: #f8f9fa; /* Off white */
+  --header-bg: #ffffff; /* White header */
   --text-color: #2c3e50;
 }
 
@@ -47,7 +47,7 @@ header a:hover {
   margin: 0 auto;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background: #e79049;
+  background: var(--background); /* Match body background color */
 }
 
 /* homepage */
@@ -56,6 +56,7 @@ header a:hover {
   grid-template-columns: 3fr 1fr;
   gap: 100px;
 }
+
 .book-details {
   background: #fff;
   border-radius: 4px;
@@ -79,6 +80,7 @@ header a:hover {
   font-size: 1.2em;
   color: var(--primary);
 }
+
 .book-details p {
   margin: 0;
   font-size: 0.9em;
@@ -89,12 +91,13 @@ label,
 input {
   display: block;
 }
+
 input {
   padding: 10px;
   margin-top: 10px;
   margin-bottom: 20px;
-  width: 100px;
-  border: 1px solid #ffffff;
+  width: 100%;
+  border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;
   box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.1);
@@ -105,7 +108,7 @@ form button {
   border: 0;
   color: #ffffff;
   padding: 10px;
-  font-family: 'Lora', 'serif';
+  font-family: 'Lora', serif;
   border-radius: 4px;
   cursor: pointer;
 }

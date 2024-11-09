@@ -18,25 +18,27 @@ const Home = () => {
   }
 
   return (
-    <div className="home-container">
-      <h1 className="home-title">Please Select Your Role</h1>
-      <div className="button-container">
-        <Button
-          variant="contained"
-          className="home-button"
-          disabled={isLoading}
-          onClick={handleUserNavigation}
-        >
-          User
-        </Button>
-        <Button
-          variant="contained"
-          className="home-button"
-          disabled={isLoading}
-          onClick={handleAdminNavigation}
-        >
-          Banker
-        </Button>
+    <div className='home-container'>
+      <div className='home-card'>
+        <h1 className='home-title'>Please Select Your Role</h1>
+        <div className='button-container'>
+          <Button
+            variant='contained'
+            className='home-button'
+            disabled={isLoading}
+            onClick={handleUserNavigation}
+          >
+            User
+          </Button>
+          <Button
+            variant='contained'
+            className='home-button'
+            disabled={isLoading}
+            onClick={handleAdminNavigation}
+          >
+            Banker
+          </Button>
+        </div>
       </div>
     </div>
   )

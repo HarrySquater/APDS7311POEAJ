@@ -45,7 +45,6 @@ const Payment = () => {
           Logout
         </Button>
       </div>
-      <h1 className='payment-title'>Payment Portal</h1>
       {message && (
         <div
           className={`message ${
@@ -56,6 +55,8 @@ const Payment = () => {
         </div>
       )}
       <div className='payment-form-container'>
+        <h1 className='payment-title'>Payment Portal</h1>
+        <br></br>
         <form onSubmit={handlePaymentSubmit}>
           <label className='payment-label'>
             Payment Amount:

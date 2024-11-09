@@ -1,58 +1,73 @@
-/* Container for the whole page */
 .home-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-  
-  /* Title */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* card container */
+.home-card {
+  background: #fff;
+  padding: 30px;
+  width: 100%;
+  max-width: 450px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 255, 0.7), 0 0 15px rgba(0, 0, 255, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.home-title {
+  font-size: 2.2rem;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #000;
+}
+
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Button styling */
+.home-button {
+  width: 100%;
+  max-width: 250px;
+  padding: 12px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.home-button:hover {
+  background-color: #0056b3;
+}
+
+
+@media (max-width: 768px) {
   .home-title {
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 20px;
+    font-size: 2rem;
   }
-  
-  /* Button container for spacing */
-  .button-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+}
+
+@media (max-width: 480px) {
+  .home-title {
+    font-size: 1.8rem;
   }
-  
-  /* Buttons */
-  .home-button {
-    width: 250px;
-    background-color: #007bff;
-    color: #fff;
+
+  .home-container {
+    padding: 10px;
   }
-  
-  /* Responsive Styles */
-  @media (max-width: 768px) {
-    .home-title {
-      font-size: 2rem;
-    }
-  
-    .home-button {
-      width: 200px;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .home-title {
-      font-size: 1.8rem;
-    }
-  
-    .home-container {
-      padding: 10px;
-    }
-  
-    .home-button {
-      width: 180px;
-    }
-  }
-  
+}
