@@ -1,10 +1,19 @@
 const Payment = require('../models/paymentModels')
 const mongoose = require('mongoose')
+const { decrypt } = require('../utils/encryptionUtils')
 
 //get all payments
 const getPayments = async (req, res) => {
   const payments = await Payment.find({}).sort({ createdAt: -1 })
-  res.status(200).json(payments)
+
+  // Decrypt swiftAccount and swiftCode for each payment
+  const decryptedPayments = payments.map((payment) => ({
+    ...payment.toObject(),
+    swiftAccount: decrypt(payment.swiftAccount),
+    swiftCode: decrypt(payment.swiftCode),
+  }))
+
+  res.status(200).json(decryptedPayments)
 }
 
 //get a single payment by ID
@@ -21,7 +30,14 @@ const getPayment = async (req, res) => {
     return res.status(404).json({ error: 'Payment not found!' })
   }
 
-  res.status(200).json({ payment })
+  // Decrypt swiftAccount and swiftCode
+  const decryptedPayment = {
+    ...payment.toObject(),
+    swiftAccount: decrypt(payment.swiftAccount),
+    swiftCode: decrypt(payment.swiftCode),
+  }
+
+  res.status(200).json(decryptedPayment)
 }
 
 //create a new payment

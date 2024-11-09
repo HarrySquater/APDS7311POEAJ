@@ -57,7 +57,7 @@ const AdminDashboard = () => {
               </thead>
               <tbody>
                 {payments.map((payment) => (
-                  <tr key={payment.id} className='table-row'>
+                  <tr key={payment._id} className='table-row'>
                     <td>{payment.paymentAmount}</td>
                     <td>{payment.currencyType}</td>
                     <td>{payment.bankProvider}</td>
