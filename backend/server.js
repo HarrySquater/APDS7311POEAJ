@@ -21,11 +21,24 @@ app.use(
       useDefaults: true,
       directives: {
         'default-src': ["'self'"],
+        'img-src': ["'self'", 'https:', 'data:'],
+        'script-src': ["'self'", "'unsafe-inline'", 'https:'],
+        'connect-src': ["'self'", 'https:'],
       },
     },
     referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
     crossOriginEmbedderPolicy: true,
     crossOriginResourcePolicy: { policy: 'same-origin' },
+    dnsPrefetchControl: { allow: false }, //disable DNS prefetch
+    expectCt: { maxAge: 86400, enforce: true }, //header to prevent man in the middle
+    frameguard: { action: 'deny' }, //disallow iframes to prevent clickjacking
+    hidePoweredBy: true, //avoid revealing server details
+    hsts: { maxAge: 31536000, includeSubDomains: true, preload: true }, //enforce HTTPS
+    ieNoOpen: true, //prevent opening of unstrusted html
+    noSniff: true, //prevent MIME sniffing
+    originAgentCluster: true,
+    permittedCrossDomainPolicies: { permittedPolicies: 'none' }, //block plug ins
+    xssFilter: true, //xss protection header
   })
 )
 app.use(express.json())
