@@ -78,5 +78,42 @@ export const usePayment = () => {
     }
   }
 
-  return { createPayment, getPayments, error, isLoading, message, messageType }
+  const verifyPayment = async (paymentId, swiftAccount, swiftCode) => {
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      const response = await fetch(`/api/payments/verifyPayment`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'CSRF-Token': csrfToken,
+        },
+        body: JSON.stringify({ id: paymentId, swiftAccount, swiftCode }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to verify payment')
+      }
+
+      const updatedPayment = await response.json()
+      dispatch({ type: 'UPDATE_PAYMENT', payload: updatedPayment })
+      setIsLoading(false)
+      return { ok: true }
+    } catch (error) {
+      setError(error.message)
+      setIsLoading(false)
+      return { ok: false }
+    }
+  }
+
+  return {
+    createPayment,
+    getPayments,
+    verifyPayment,
+    error,
+    isLoading,
+    message,
+    messageType,
+  }
 }

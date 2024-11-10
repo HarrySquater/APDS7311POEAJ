@@ -3,6 +3,7 @@ const {
   getPayments,
   getPayment,
   createPayment,
+  verifyPayment,
 } = require('../controllers/paymentController')
 const ExpressBrute = require('express-brute')
 
@@ -25,5 +26,8 @@ router.get('/:id', getPayment)
 
 //create new payment
 router.post('/createPayment', bruteForce.prevent, createPayment)
+
+//verify payment
+router.patch('/verifyPayment', bruteForce.prevent, verifyPayment)
 
 module.exports = router

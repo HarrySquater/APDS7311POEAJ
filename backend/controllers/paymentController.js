@@ -59,8 +59,47 @@ const createPayment = async (req, res) => {
   }
 }
 
+const verifyPayment = async (req, res) => {
+  const { id, swiftAccount, swiftCode } = req.body
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: 'Invalid ID' })
+  }
+
+  try {
+    const payment = await Payment.findById(id)
+
+    if (!payment) {
+      return res.status(404).json({ error: 'Payment not found!' })
+    }
+
+    //decrypt to compare
+    const decryptedSwiftAccount = decrypt(payment.swiftAccount)
+    const decryptedSwiftCode = decrypt(payment.swiftCode)
+
+    //verify details
+    if (
+      decryptedSwiftAccount !== swiftAccount ||
+      decryptedSwiftCode !== swiftCode
+    ) {
+      return res
+        .status(400)
+        .json({ error: 'Swift account or code does not match' })
+    }
+
+    //mark as true
+    payment.verified = true
+    await payment.save()
+
+    res.status(200).json(payment)
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+}
+
 module.exports = {
   getPayments,
   getPayment,
   createPayment,
+  verifyPayment,
 }

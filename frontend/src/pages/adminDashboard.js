@@ -6,7 +6,7 @@ import '../CSS/AdminDashboard.css'
 
 const AdminDashboard = () => {
   const { adminLogout } = useAdminLogout()
-  const { getPayments, error, isLoading } = usePayment()
+  const { getPayments, verifyPayment, error, isLoading } = usePayment()
   const [payments, setPayments] = useState([])
   const [dashboardMessage, setDashboardMessage] = useState(null)
 
@@ -21,6 +21,25 @@ const AdminDashboard = () => {
     }
     loadPayments()
   }, [])
+
+  const handleVerify = async (payment) => {
+    const response = await verifyPayment(
+      payment._id,
+      payment.swiftAccount,
+      payment.swiftCode
+    )
+
+    if (response.ok) {
+      setPayments((prevPayments) =>
+        prevPayments.map((p) =>
+          p._id === payment._id ? { ...p, verified: true } : p
+        )
+      )
+      setDashboardMessage('Payment verified successfully.')
+    } else {
+      setDashboardMessage('Failed to verify payment.')
+    }
+  }
 
   return (
     <div className='admin-dashboard-container'>
@@ -64,7 +83,13 @@ const AdminDashboard = () => {
                     <td>{payment.swiftAccount}</td>
                     <td>{payment.swiftCode}</td>
                     <td className='actions-cell'>
-                      <Button variant='contained'>Approve to Swift</Button>
+                      <Button
+                        variant='contained'
+                        onClick={() => handleVerify(payment)}
+                        disabled={payment.verified}
+                      >
+                        {payment.verified ? 'Verified' : 'Verify'}
+                      </Button>
                     </td>
                   </tr>
                 ))}

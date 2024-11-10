@@ -4,7 +4,7 @@ export const PaymentsContext = createContext()
 
 export const paymentsReducer = (state, action) => {
   switch (action.type) {
-    case 'SET_PAYMENT':
+    case 'SET_PAYMENTS':
       return {
         payments: action.payload,
       }
@@ -12,6 +12,13 @@ export const paymentsReducer = (state, action) => {
     case 'CREATE_PAYMENT':
       return {
         payments: [action.payload, ...(state.payments || [])],
+      }
+
+    case 'UPDATE_PAYMENT':
+      return {
+        payments: state.payments.map((payment) =>
+          payment._id === action.payload._id ? action.payload : payment
+        ),
       }
     default:
       return state
