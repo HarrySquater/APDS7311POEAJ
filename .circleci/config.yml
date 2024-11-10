@@ -15,7 +15,7 @@ jobs:
   sonarqube:
     working_directory: ~/build
     docker:
-      - image: sonarsource/sonar-scanner-cli # Use the SonarQube Scanner image
+      - image: sonarsource/sonar-scanner-cli
     resource_class: small
     steps:
       - run:
