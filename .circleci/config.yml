@@ -24,8 +24,7 @@ jobs:
       - image: sonarsource/sonar-scanner-cli
     resource_class: small
     steps:
-      - run: find APDS7311POEAJ
-
+      - run: find ./backend ./frontend
       - attach_workspace:
           at: ~/workspace
       - run: |
