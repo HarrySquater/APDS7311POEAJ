@@ -44,6 +44,7 @@ const getPayment = async (req, res) => {
 const createPayment = async (req, res) => {
   const { paymentAmount, currencyType, bankProvider, swiftAccount, swiftCode } =
     req.body
+  const userId = req.user.id
 
   try {
     const payment = await Payment.createPayment(
@@ -51,7 +52,8 @@ const createPayment = async (req, res) => {
       currencyType,
       bankProvider,
       swiftAccount,
-      swiftCode
+      swiftCode,
+      userId // Pass userId to the createPayment static method
     )
     res.status(200).json(payment)
   } catch (error) {

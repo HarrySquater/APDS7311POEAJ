@@ -29,6 +29,11 @@ const paymentSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
   },
   { timestamps: true }
 )
@@ -38,14 +43,16 @@ paymentSchema.statics.createPayment = async function (
   currencyType,
   bankProvider,
   swiftAccount,
-  swiftCode
+  swiftCode,
+  userId
 ) {
   if (
     !paymentAmount ||
     !currencyType ||
     !bankProvider ||
     !swiftAccount ||
-    !swiftCode
+    !swiftCode ||
+    !userId
   ) {
     throw Error('All fields must be filled')
   }
@@ -98,6 +105,7 @@ paymentSchema.statics.createPayment = async function (
     bankProvider,
     swiftAccount: encryptedSwiftAccount,
     swiftCode: encryptedSwiftCode,
+    userId,
   })
 
   return payment

@@ -11,17 +11,15 @@ const loginUser = async (req, res) => {
   const { fullName, accountNumber, password } = req.body
   try {
     const user = await User.login(fullName, accountNumber, password)
-    //storing token in cookie
     const token = createToken(user.id)
     res.cookie('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      //stores cookie for an hour
       maxAge: 60 * 60 * 1000,
       sameSite: 'Lax',
     })
 
-    res.status(200).json({ fullName })
+    res.status(200).json({ fullName: user.fullName, id: user.id })
   } catch (error) {
     res.status(400).json({ error: error.message })
   }

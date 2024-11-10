@@ -6,6 +6,7 @@ const {
   verifyPayment,
 } = require('../controllers/paymentController')
 const ExpressBrute = require('express-brute')
+const authenticate = require('../utils/authenticate')
 
 //create instance of router
 const router = express.Router()
@@ -25,7 +26,7 @@ router.get('/getPayments', getPayments)
 router.get('/:id', getPayment)
 
 //create new payment
-router.post('/createPayment', bruteForce.prevent, createPayment)
+router.post('/createPayment', authenticate, bruteForce.prevent, createPayment)
 
 //verify payment
 router.patch('/verifyPayment', bruteForce.prevent, verifyPayment)
