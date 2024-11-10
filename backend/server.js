@@ -15,12 +15,26 @@ const cookieParser = require('cookie-parser')
 const app = express()
 
 //middleware
-app.use(helmet())
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      useDefaults: true,
+      directives: {
+        'default-src': ["'self'"],
+      },
+    },
+    referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+    crossOriginEmbedderPolicy: true,
+    crossOriginResourcePolicy: { policy: 'same-origin' },
+  })
+)
 app.use(express.json())
 app.use(cookieParser())
 
 //cSRF protection
-const csrfProtection = csrf({ cookie: true })
+const csrfProtection = csrf({
+  cookie: { httpOnly: true, secure: process.env.NODE_ENV === 'production' },
+})
 app.use(csrfProtection)
 
 //routing to send CSRF token
