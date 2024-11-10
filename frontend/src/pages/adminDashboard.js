@@ -129,13 +129,13 @@ const AdminDashboard = () => {
         aria-describedby='user-details-description'
       >
         <Box className='modal-box'>
-          <h2>User Details</h2>
+          <h2>Payee Details</h2>
           {userLoading ? (
             <p>Loading user details...</p>
           ) : userError ? (
             <p className='error-message'>{userError}</p>
           ) : userDetails ? (
-            <p>User Name: {userDetails.name}</p>
+            <p>Name: {userDetails.name}</p>
           ) : (
             <p>No user details available.</p>
           )}

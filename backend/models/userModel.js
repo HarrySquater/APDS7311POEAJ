@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 const validator = require('validator')
+const { encrypt, decrypt } = require('../utils/encryptionUtils')
 
 const Schema = mongoose.Schema
 
@@ -96,13 +97,13 @@ userSchema.statics.signup = async function (
   const salt = await bcrypt.genSalt(10)
   const hashedPassword = await bcrypt.hash(password, salt)
   const hashedIDNumber = await bcrypt.hash(idNumber, salt)
-  const hashedAccountNumber = await bcrypt.hash(accountNumber, salt)
+  const encryptedAccountNumber = encrypt(accountNumber)
 
   const user = await this.create({
     fullName,
     password: hashedPassword,
     idNumber: hashedIDNumber,
-    accountNumber: hashedAccountNumber,
+    accountNumber: encryptedAccountNumber,
   })
 
   return user
@@ -121,11 +122,8 @@ userSchema.statics.login = async function (fullName, accountNumber, password) {
   }
 
   //comparing against hashed versions
-  const isValidAccountNumber = await bcrypt.compare(
-    accountNumber,
-    user.accountNumber
-  )
-  if (!isValidAccountNumber) {
+  const decryptedAccountNumber = decrypt(user.accountNumber)
+  if (decryptedAccountNumber !== accountNumber) {
     throw new Error('Invalid credentials')
   }
 
