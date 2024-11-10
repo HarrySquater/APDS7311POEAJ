@@ -1,6 +1,7 @@
 const User = require('../models/userModel')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
+const { decrypt } = require('../utils/encryptionUtils')
 
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.SECRET_KEY, { expiresIn: '1h' })
@@ -64,7 +65,14 @@ const getUserById = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: 'User not found' })
     }
-    res.status(200).json({ name: user.fullName })
+
+    // Decrypt the account number
+    const decryptedAccountNumber = decrypt(user.accountNumber)
+
+    // Send user details with decrypted account number
+    res
+      .status(200)
+      .json({ name: user.fullName, accountNumber: decryptedAccountNumber })
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch user details' })
   }

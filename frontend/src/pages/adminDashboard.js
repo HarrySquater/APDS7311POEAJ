@@ -135,7 +135,10 @@ const AdminDashboard = () => {
           ) : userError ? (
             <p className='error-message'>{userError}</p>
           ) : userDetails ? (
-            <p>Name: {userDetails.name}</p>
+            <>
+              <p>Name: {userDetails.name}</p>
+              <p>Account Number: {userDetails.accountNumber}</p>
+            </>
           ) : (
             <p>No user details available.</p>
           )}
