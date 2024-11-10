@@ -3,6 +3,7 @@ const {
   loginUser,
   signupUser,
   logoutUser,
+  getUserById,
 } = require('../controllers/userController')
 const ExpressBrute = require('express-brute')
 
@@ -24,5 +25,8 @@ router.post('/signup', bruteForce.prevent, signupUser)
 
 //log out
 router.post('/logout', logoutUser)
+
+//get user
+router.get('/:id', getUserById)
 
 module.exports = router

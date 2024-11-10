@@ -119,4 +119,45 @@
       padding: 10px;
     }
   }
+
+  .modal-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: white;
+    color: black;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    outline: none;
+  }
+  
+  .modal-box h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+  }
+  
+  .modal-box p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+  
+  .modal-box button {
+    display: block;
+    margin-top: 15px;
+    margin-left: auto;
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .modal-box button:hover {
+    background-color: #333;
+  }
+  
   

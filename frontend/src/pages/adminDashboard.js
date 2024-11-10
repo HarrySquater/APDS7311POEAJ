@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button'
+import Modal from '@mui/material/Modal'
+import Box from '@mui/material/Box'
 import { useAdminLogout } from '../hooks/useAdminLogout'
 import { usePayment } from '../hooks/usePayment'
+import { useUserDetails } from '../hooks/useUserDetails'
 import '../CSS/AdminDashboard.css'
 
 const AdminDashboard = () => {
@@ -9,6 +12,13 @@ const AdminDashboard = () => {
   const { getPayments, verifyPayment, error, isLoading } = usePayment()
   const [payments, setPayments] = useState([])
   const [dashboardMessage, setDashboardMessage] = useState(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const {
+    fetchUserDetails,
+    userDetails,
+    error: userError,
+    isLoading: userLoading,
+  } = useUserDetails()
 
   useEffect(() => {
     const loadPayments = async () => {
@@ -41,6 +51,11 @@ const AdminDashboard = () => {
     }
   }
 
+  const handleUserClick = async (userId) => {
+    await fetchUserDetails(userId)
+    setIsModalOpen(true)
+  }
+
   return (
     <div className='admin-dashboard-container'>
       <div className='logout-button-container'>
@@ -52,7 +67,7 @@ const AdminDashboard = () => {
           Logout
         </Button>
       </div>
-      <h1 className='dashboard-title'>Admin Dashboard</h1>
+      <h1 className='dashboard-title'>Payments</h1>
       {dashboardMessage && (
         <div className='dashboard-message'>{dashboardMessage}</div>
       )}
@@ -66,17 +81,26 @@ const AdminDashboard = () => {
             <table className='payments-table'>
               <thead>
                 <tr className='table-header'>
+                  <th>Payee</th>
                   <th>Payment Amount</th>
                   <th>Currency Type</th>
                   <th>Bank Provider</th>
                   <th>Swift Account</th>
                   <th>Swift Code</th>
-                  <th>Actions</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
                 {payments.map((payment) => (
                   <tr key={payment._id} className='table-row'>
+                    <td>
+                      <button
+                        className='user-id-button'
+                        onClick={() => handleUserClick(payment.userId)}
+                      >
+                        View Payee
+                      </button>
+                    </td>
                     <td>{payment.paymentAmount}</td>
                     <td>{payment.currencyType}</td>
                     <td>{payment.bankProvider}</td>
@@ -98,6 +122,26 @@ const AdminDashboard = () => {
           </div>
         )}
       </div>
+      <Modal
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        aria-labelledby='user-details-modal'
+        aria-describedby='user-details-description'
+      >
+        <Box className='modal-box'>
+          <h2>User Details</h2>
+          {userLoading ? (
+            <p>Loading user details...</p>
+          ) : userError ? (
+            <p className='error-message'>{userError}</p>
+          ) : userDetails ? (
+            <p>User Name: {userDetails.name}</p>
+          ) : (
+            <p>No user details available.</p>
+          )}
+          <Button onClick={() => setIsModalOpen(false)}>Close</Button>
+        </Box>
+      </Modal>
     </div>
   )
 }
