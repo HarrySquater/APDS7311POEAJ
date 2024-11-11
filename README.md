@@ -40,11 +40,19 @@ npm run dev
 
 <ins>Mac Frontend:</ins>
 
-**If 'npm start' does not work on mac, please run this for the first run**
+npm start
 
-npx cross-env HTTPS=true react-scripts start
+**If 'npm start' does not work, please run this for the first run:**
+
+- rm -rf node_modules package-lock.json
+- npm install
 
 
 <ins>Windows Frontend:</ins>
 
 npm start
+
+**If 'npm start' does not work, please run this for the first run:**
+
+- rm -rf node_modules package-lock.json
+- npm install
