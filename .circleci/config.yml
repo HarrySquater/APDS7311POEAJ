@@ -58,11 +58,11 @@ jobs:
       - run:
           name: Install Backend Dependencies
           command: |
-            cd backend
+            cd backend/
             npm install
       - run:
           name: Start Backend
-          command: npm start
+          command: npm run dev
 
   test-frontend:
     docker:
@@ -73,7 +73,7 @@ jobs:
       - run:
           name: Install Frontend Dependencies
           command: |
-            cd frontend
+            cd frontend/
             npm install
       - run:
           name: Run Frontend Tests
@@ -88,7 +88,7 @@ jobs:
       - run:
           name: Install Frontend Dependencies
           command: |
-            cd frontend
+            cd frontend/
             npm install
       - run:
           name: Lint Frontend Code
