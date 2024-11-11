@@ -58,8 +58,7 @@ jobs:
           command: npm install --prefix backend
       - run:
           name: Start Backend
-          command: npm run dev --prefix backend &
-          sleep 10
+          command: npm run dev --prefix backend & sleep 10
 
   lint-frontend:
     docker:
