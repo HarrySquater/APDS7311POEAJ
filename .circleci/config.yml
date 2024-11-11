@@ -42,10 +42,10 @@ jobs:
       - checkout
       - run:
           name: Install Frontend Dependencies
-          command: npm install
+          command: npm install --prefix frontend
       - run:
           name: Build Frontend
-          command: npm start
+          command: npm start --prefix frontend
 
   build-backend:
     docker:
