@@ -58,7 +58,7 @@ jobs:
           command: npm install --prefix backend
       - run:
           name: Start Backend
-          command: npm run biuld --prefix backend
+          command: npm run dev --prefix backend
 
   lint-frontend:
     docker:
