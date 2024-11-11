@@ -3,15 +3,6 @@ orbs:
   node: circleci/node@5
 
 jobs:
-  say-hello:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - checkout
-      - run:
-          name: 'Say hello'
-          command: 'echo Hello, World!'
-
   sonarqube:
     docker:
       - image: sonarsource/sonar-scanner-cli
@@ -79,7 +70,6 @@ jobs:
 workflows:
   main-workflow:
     jobs:
-      - say-hello
       - build-frontend
       - build-backend
       - sonarqube
