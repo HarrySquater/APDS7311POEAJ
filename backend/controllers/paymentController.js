@@ -6,7 +6,7 @@ const { decrypt } = require('../utils/encryptionUtils')
 const getPayments = async (req, res) => {
   const payments = await Payment.find({}).sort({ createdAt: -1 })
 
-  // Decrypt swiftAccount and swiftCode for each payment
+  //decrypt swiftAccount and swiftCode for each payment
   const decryptedPayments = payments.map((payment) => ({
     ...payment.toObject(),
     swiftAccount: decrypt(payment.swiftAccount),
