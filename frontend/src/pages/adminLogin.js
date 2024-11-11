@@ -3,19 +3,25 @@ import { useAdminLogin } from '../hooks/useAdminLogin'
 import { useNavigate } from 'react-router-dom'
 import Button from '@mui/material/Button'
 import '../CSS/AdminLogin.css'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 const AdminLogin = () => {
   const [idNumber, setIdNumber] = useState('')
   const [password, setPassword] = useState('')
+  const [recaptchaToken, setRecaptchaToken] = useState(null)
   const { adminLogin, isLoading, error } = useAdminLogin()
   const navigate = useNavigate()
 
   const handleAdminLogin = async (e) => {
     e.preventDefault()
-    const response = await adminLogin(idNumber, password)
+    const response = await adminLogin(idNumber, password, recaptchaToken)
     if (response.ok) {
       navigate('/AdminDashboard')
     }
+  }
+
+  const onRecaptchaChange = (value) => {
+    setRecaptchaToken(value) //store captcha token
   }
 
   return (
@@ -41,6 +47,10 @@ const AdminLogin = () => {
               value={password}
             />
           </label>
+          <ReCAPTCHA
+            sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+            onChange={onRecaptchaChange}
+          />
           <div className='admin-login-button-container'>
             <Button
               variant='contained'

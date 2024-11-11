@@ -17,7 +17,7 @@ export const useAdminLogin = () => {
     fetchCsrfToken()
   }, [])
 
-  const adminLogin = async (idNumber, password) => {
+  const adminLogin = async (idNumber, password, recaptchaToken) => {
     setIsLoading(true)
     setError(null)
 
@@ -27,7 +27,7 @@ export const useAdminLogin = () => {
         'Content-Type': 'application/json',
         'CSRF-Token': csrfToken,
       },
-      body: JSON.stringify({ idNumber, password }),
+      body: JSON.stringify({ idNumber, password, recaptchaToken }),
     })
 
     const json = await response.json()

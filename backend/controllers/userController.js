@@ -9,8 +9,18 @@ const createToken = (id) => {
 
 //login user
 const loginUser = async (req, res) => {
-  const { fullName, accountNumber, password } = req.body
+  const { fullName, accountNumber, password, recaptchaToken } = req.body
+
+  const verificationURL = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`
+
   try {
+    const captchaResponse = await fetch(verificationURL, { method: 'POST' })
+    const captchaData = await captchaResponse.json()
+
+    if (!captchaData.success) {
+      return res.status(400).json({ error: 'reCAPTCHA verification failed' })
+    }
+
     const user = await User.login(fullName, accountNumber, password)
     const token = createToken(user.id)
     res.cookie('token', token, {

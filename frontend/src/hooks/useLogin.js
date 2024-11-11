@@ -17,7 +17,7 @@ export const useLogin = () => {
     fetchCsrfToken()
   }, [])
 
-  const login = async (fullName, accountNumber, password) => {
+  const login = async (fullName, accountNumber, password, recaptchaToken) => {
     setIsLoading(true)
     setError(null)
 
@@ -27,7 +27,12 @@ export const useLogin = () => {
         'Content-Type': 'application/json',
         'CSRF-Token': csrfToken,
       },
-      body: JSON.stringify({ fullName, accountNumber, password }),
+      body: JSON.stringify({
+        fullName,
+        accountNumber,
+        password,
+        recaptchaToken,
+      }),
     })
 
     const json = await response.json()

@@ -8,8 +8,18 @@ const createToken = (id) => {
 
 //login admin
 const loginAdmin = async (req, res) => {
-  const { idNumber, password } = req.body
+  const { idNumber, password, recaptchaToken } = req.body
+
+  const verificationURL = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`
+
   try {
+    const captchaResponse = await fetch(verificationURL, { method: 'POST' })
+    const captchaData = await captchaResponse.json()
+
+    if (!captchaData.success) {
+      return res.status(400).json({ error: 'reCAPTCHA verification failed' })
+    }
+
     const admin = await AdminUser.login(idNumber, password)
     //storing token in cookie
     const token = createToken(admin.id)
