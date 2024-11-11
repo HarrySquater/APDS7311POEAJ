@@ -70,8 +70,7 @@ jobs:
       - checkout
       - run:
           name: Install Frontend Dependencies
-          command: 
-          npm run build --prefix frontend
+          command: npm run build --prefix frontend
       - run:
           name: Lint Frontend Code
           command: npm run lint || echo "Linting completed with warnings/errors."
