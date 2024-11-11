@@ -37,7 +37,7 @@ jobs:
   build-frontend:
     docker:
       - image: cimg/node:lts
-    working_directory: ~/frontend
+    working_directory: ~/../frontend
     steps:
       - checkout
       - run:
@@ -52,7 +52,7 @@ jobs:
   build-backend:
     docker:
       - image: cimg/node:lts
-    working_directory: ~/backend
+    working_directory: ~/../backend
     steps:
       - checkout
       - run:
