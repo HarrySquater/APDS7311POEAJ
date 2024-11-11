@@ -24,7 +24,10 @@ const AdminDashboard = () => {
     const loadPayments = async () => {
       const response = await getPayments()
       if (response.ok) {
-        setPayments(response.payments)
+        const unverifiedPayments = response.payments.filter(
+          (payment) => !payment.verified
+        )
+        setPayments(unverifiedPayments)
       } else {
         setDashboardMessage('Failed to load payments.')
       }
@@ -55,6 +58,18 @@ const AdminDashboard = () => {
   const handleUserClick = async (userId) => {
     await fetchUserDetails(userId)
     setIsModalOpen(true)
+  }
+
+  const handleSendToSwift = async () => {
+    const response = await getPayments()
+    if (response.ok) {
+      const unverifiedPayments = response.payments.filter(
+        (payment) => !payment.verified
+      )
+      setPayments(unverifiedPayments)
+    } else {
+      setDashboardMessage('Failed to load payments.')
+    }
   }
 
   return (
@@ -123,6 +138,13 @@ const AdminDashboard = () => {
           </div>
         )}
       </div>
+      <Button
+        variant='contained'
+        className='send-to-swift-button'
+        onClick={handleSendToSwift}
+      >
+        Send to SWIFT
+      </Button>
       <Modal
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
