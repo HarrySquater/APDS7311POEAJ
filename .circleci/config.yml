@@ -47,7 +47,7 @@ jobs:
             npm install
       - run:
           name: Build Frontend
-          command: npm run build
+          command: npm start
 
   build-backend:
     docker:
