@@ -42,9 +42,7 @@ jobs:
       - checkout
       - run:
           name: Install Frontend Dependencies
-          command: |
-            cd frontend
-            npm install
+          command: npm install
       - run:
           name: Build Frontend
           command: npm start
