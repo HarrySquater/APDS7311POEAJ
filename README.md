@@ -21,7 +21,7 @@ npm run dev
 npm run dev
 
 
-### Step 2:
+### Step 2 (If error recieved regarding mui material):
 
 ->cd into frontend
 
