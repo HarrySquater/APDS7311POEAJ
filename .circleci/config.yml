@@ -45,7 +45,7 @@ jobs:
           command: npm install --prefix frontend
       - run:
           name: Build Frontend
-          command: npm start --prefix frontend
+          command: npm run build --prefix frontend
 
   build-backend:
     docker:
