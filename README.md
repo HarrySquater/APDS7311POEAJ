@@ -1,3 +1,11 @@
+# Login details
+
+<ins>Banker Login:</ins>
+
+-ID Number: 1234567890124
+-Password: adminPassword@123!
+
+
 # Starting the Application
 
 ## Start instructions before running:
