@@ -67,6 +67,19 @@ jobs:
           name: Lint Frontend Code
           command: npm run lint --prefix frontend || echo "Linting completed with warnings/errors."
 
+  lint-backend:
+    docker:
+      - image: cimg/node:lts
+    working_directory: ~/backend
+    steps:
+      - checkout
+      - run:
+          name: Install Backend Dependencies
+          command: npm install --prefix backend
+      - run:
+          name: Lint Backend Code
+          command: npm run lint --prefix backend || echo "Linting completed with warnings/errors."
+
 workflows:
   main-workflow:
     jobs:
@@ -74,3 +87,4 @@ workflows:
       - build-backend
       - sonarqube
       - lint-frontend
+      - lint-backend
