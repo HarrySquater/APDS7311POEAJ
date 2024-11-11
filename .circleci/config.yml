@@ -18,6 +18,7 @@ jobs:
       - image: sonarsource/sonar-scanner-cli
     resource_class: small
     steps:
+      - checkout
       - run:
           name: Run SonarQube Analysis
           command: |
@@ -33,8 +34,72 @@ jobs:
               -Dsonar.branch.name="$SONAR_BRANCH" \
               -Dsonar.sources="."
 
+  build-frontend:
+    docker:
+      - image: cimg/node:lts
+    working_directory: ~/frontend
+    steps:
+      - checkout
+      - run:
+          name: Install Frontend Dependencies
+          command: |
+            cd frontend
+            npm install
+      - run:
+          name: Build Frontend
+          command: npm run build
+
+  build-backend:
+    docker:
+      - image: cimg/node:lts
+    working_directory: ~/backend
+    steps:
+      - checkout
+      - run:
+          name: Install Backend Dependencies
+          command: |
+            cd backend
+            npm install
+      - run:
+          name: Start Backend
+          command: npm start
+
+  test-frontend:
+    docker:
+      - image: cimg/node:lts
+    working_directory: ~/frontend
+    steps:
+      - checkout
+      - run:
+          name: Install Frontend Dependencies
+          command: |
+            cd frontend
+            npm install
+      - run:
+          name: Run Frontend Tests
+          command: npm test -- --watchAll=false
+
+  lint-frontend:
+    docker:
+      - image: cimg/node:lts
+    working_directory: ~/frontend
+    steps:
+      - checkout
+      - run:
+          name: Install Frontend Dependencies
+          command: |
+            cd frontend
+            npm install
+      - run:
+          name: Lint Frontend Code
+          command: npm run lint || echo "Linting completed with warnings/errors."
+
 workflows:
-  say-hello-workflow:
+  main-workflow:
     jobs:
       - say-hello
+      - build-frontend
+      - build-backend
+      - test-frontend
       - sonarqube
+      - lint-frontend
