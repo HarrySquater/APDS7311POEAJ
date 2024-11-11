@@ -35,15 +35,18 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        keys:
-          - npm-cache-{{ .Branch }}-{{ checksum "frontend/package-lock.json" }}
+          keys:
+            - npm-cache-frontend-{{ .Branch }}-{{ checksum "frontend/package-lock.json" }}
       - run:
           name: Install Frontend Dependencies
           command: npm install --prefix frontend
       - save_cache:
           paths:
             - ./frontend/node_modules
-          key: npm-cache-{{ .Branch }}-{{ checksum "frontend/package-lock.json" }}
+          key: npm-cache-frontend-{{ .Branch }}-{{ checksum "frontend/package-lock.json" }}
+      - run:
+          name: Set Permissions
+          command: chmod -R 755 frontend/node_modules
       - run:
           name: Build Frontend
           command: npm run build --prefix frontend
@@ -54,9 +57,16 @@ jobs:
     working_directory: ~/backend
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - npm-cache-backend-{{ .Branch }}-{{ checksum "backend/package-lock.json" }}
       - run:
           name: Install Backend Dependencies
           command: npm install --prefix backend
+      - save_cache:
+          paths:
+            - ./backend/node_modules
+          key: npm-cache-backend-{{ .Branch }}-{{ checksum "backend/package-lock.json" }}
       - run:
           name: Start Backend
           command: npm run dev --prefix backend & sleep 10
@@ -67,9 +77,16 @@ jobs:
     working_directory: ~/frontend
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - npm-cache-frontend-{{ .Branch }}-{{ checksum "frontend/package-lock.json" }}
       - run:
           name: Install Frontend Dependencies
           command: npm install --prefix frontend
+      - save_cache:
+          paths:
+            - ./frontend/node_modules
+          key: npm-cache-frontend-{{ .Branch }}-{{ checksum "frontend/package-lock.json" }}
       - run:
           name: Lint Frontend Code
           command: npm run lint --prefix frontend || echo "Linting completed with warnings/errors."
