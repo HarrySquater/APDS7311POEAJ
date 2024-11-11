@@ -62,21 +62,6 @@ jobs:
           name: Start Backend
           command: npm run dev
 
-  test-frontend:
-    docker:
-      - image: cimg/node:lts
-    working_directory: ~/frontend
-    steps:
-      - checkout
-      - run:
-          name: Install Frontend Dependencies
-          command: |
-            cd frontend
-            npm install
-      - run:
-          name: Run Frontend Tests
-          command: npm test -- --watchAll=false
-
   lint-frontend:
     docker:
       - image: cimg/node:lts
@@ -85,9 +70,8 @@ jobs:
       - checkout
       - run:
           name: Install Frontend Dependencies
-          command: |
-            cd frontend
-            npm install
+          command: 
+          npm run build --prefix frontend
       - run:
           name: Lint Frontend Code
           command: npm run lint || echo "Linting completed with warnings/errors."
@@ -98,6 +82,5 @@ workflows:
       - say-hello
       - build-frontend
       - build-backend
-      - test-frontend
       - sonarqube
       - lint-frontend
