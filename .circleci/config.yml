@@ -78,7 +78,7 @@ jobs:
           command: npm install --prefix backend
       - run:
           name: Ensure ESLint is Executable
-          command: chmod +x backend/node_modules/.bin/eslint
+          command: chmod +x ./node_modules/.bin/eslint
       - run:
           name: Lint Backend Code
           command: npm run lint --prefix backend || echo "Linting completed with warnings/errors."
