@@ -30,6 +30,7 @@ const AdminDashboard = () => {
       }
     }
     loadPayments()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleVerify = async (payment) => {
