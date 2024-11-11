@@ -5,12 +5,6 @@
 
 ### Step 1:
 
-->cd into frontend
-->npm install @mui/material @emotion/react @emotion/styled
-
-
-### Step 2:
-
 
 <ins>Starting Backend:</ins>
 
@@ -27,6 +21,14 @@ npm run dev
 npm run dev
 
 
+### Step 2:
+
+->cd into frontend
+
+->npm install @mui/material @emotion/react @emotion/styled
+
+
+
 ### Step 3:
 
 
@@ -39,6 +41,7 @@ npm run dev
 <ins>Mac Frontend:</ins>
 
 **If 'npm start' does not work on mac, please run this for the first run**
+
 npx cross-env HTTPS=true react-scripts start
 
 
