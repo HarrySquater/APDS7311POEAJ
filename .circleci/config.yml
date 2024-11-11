@@ -34,7 +34,8 @@ jobs:
               -Dsonar.objc.file.suffixes=- \
               -Dsonar.login="$SONAR_TOKEN" \
               -Dsonar.branch.name="$SONAR_BRANCH" \
-              -Dsonar.sources="."
+              -Dsonar.sources="." \
+              -Dsonar.secret.regex="^(?=.*\b(token|password|key|secret)\b).*$"
 
   build-frontend:
     docker:
